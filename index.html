@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="clock">
+        <div class="hour">
+            <div class="hr" id="hr"></div>
+        </div>
+        <div class="min">
+            <div class="mn" id="mn"></div>
+        </div>
+        <div class="sec">
+            <div class="sc" id="sc"></div>
+        </div>
+        <div class="compny">ADITYA</div>
+<!-- bend text  -->
+
+
+    </div>
+
+    <!-- BTN  -->
+    <div class="theme">
+        <input type="checkbox" id="checkbox" class="checkbox">
+        <label class="label" for="checkbox">
+            <div class="ball"></div>
+        </label>
+
+    </div>
+    <!-- script  -->
+
+    
+    <script type="text/javascript">
+        const deg = 6;
+        const hr = document.querySelector('#hr');
+        const mn = document.querySelector('#mn');
+        const sc = document.querySelector('#sc');
+
+
+        setInterval(() => {
+            
+            let day = new Date();
+            let hh = day.getHours() * 30;
+            let mm = day.getMinutes() * deg;
+            let ss = day.getSeconds() * deg;
+
+            hr.style.transform = `rotateZ(${(hh) + (mm / 12)}deg)`;
+            mn.style.transform = `rotateZ(${mm}deg)`;
+            sc.style.transform = `rotateZ(${ss}deg)`;
+        });
+
+        // btn 
+        const themeToggle = document.querySelector(".checkbox");
+        const body = document.querySelector("body");
+        const darkmode = localStorage.getItem("dark");
+
+        if (darkmode) {
+            body.classList.add('dark');
+            themeToggle.checked = true;
+        }
+
+
+        themeToggle.addEventListener("change", function () {
+            body.classList.toggle("dark");
+
+            if (body.classList.contains('dark')) {
+                localStorage.setItem("dark", "active");
+            } else {
+                localStorage.removeItem("dark");
+            }
+        });
+
+        // full screen mode 
+        document.addEventListener("dblclick", () =>{
+
+        document.documentElement.requestFullscreen().catch((e) => {
+            console.log(e);
+            })
+        });
+    </script>
+</body>
+
+</html>
